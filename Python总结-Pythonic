@@ -1,0 +1,98 @@
+局部变量和全局变量
+
+Python 在函数定义中声明的变量是局部变量，它们不会以任何方式与身处函数之外但具有相同名称
+的变量产生关系,也就是说,这些变量名只存在于函数这一局部(Local)。这被称为变量的
+作用域(Scope)。所有变量的作用域是它们被定义的块,从定义它们的名字的定义点开始。
+
+如果你想给一个在程序顶层的变量赋值(也就是说它不存在于任何作用域中,无论是函数还
+是类),那么你必须告诉	Python	这一变量并非局部的,而是全局(Global)的。我们需要通
+过	 	global	 	语句来完成这件事。因为在不使用	 	global	 	语句的情况下,不可能为一个定义于
+函数之外的变量赋值。
+你可以使用定义于函数之外的变量的值(假设函数中没有具有相同名字的变量)。然而,这
+种方式不会受到鼓励而且应该避免,因为它对于程序的读者来说是含糊不清的,无法弄清楚
+变量的定义究竟在哪。而通过使用	 	global	 	语句便可清楚看出这一变量是在最外边的代码块
+中定义的。
+
+	global	 	语句用以声明	 	x	 	是一个全局变量——因此,当我们在函数中为	 	x	 	进行赋值时,这
+一改动将影响到我们在主代码块中使用的	 	x	 	的值。
+你可以在同一句	 	global	 	语句中指定不止一个的全局变量,例如	 	global	x,	y,	z	 。
+
+
+默认参数
+
+注意
+只有那些位于参数列表末尾的参数才能被赋予默认参数值,意即在函数的参数列表中拥
+有默认参数值的参数不能位于没有默认参数值的参数之前。
+这是因为值是按参数所处的位置依次分配的。举例来说, 	def	func(a,	b=5)	 	是有效的,
+但	 	def	func(a=5,	b)	 	是无效的。
+
+关键字参数
+
+如果你有一些具有许多参数的函数,而你又希望只对其中的一些进行指定,那么你可以通过
+命名它们来给这些参数赋值——这就是关键字参数(Keyword	Arguments)——我们使用命
+名(关键字)而非位置(一直以来我们所使用的方式)来指定函数中的参数。
+这样做有两大优点——其一,我们不再需要考虑参数的顺序,函数的使用将更加容易。其
+二,我们可以只对那些我们希望赋予的参数以赋值,只要其它的参数都具有默认参数值。
+案例(保存为	 	function_keyword.py	 ):
+
+
+def	func(a,	b=5,	c=10):
+				print('a	is',	a,	'and	b	is',	b,	'and	c	is',	c)
+func(3,	7)
+func(25,	c=24)
+func(c=50,	a=100)
+输出:
+$	python	function_keyword.py
+a	is	3	and	b	is	7	and	c	is	10
+a	is	25	and	b	is	5	and	c	is	24
+a	is	100	and	b	is	5	and	c	is	50
+
+
+可变参数
+
+有时你可能想定义的函数里面能够有任意数量的变量,也就是参数数量是可变的,这可以通
+过使用星号来实现(将下方案例保存为	 	function_varargs.py	 ):
+def	total(a=5,	*numbers,	**phonebook):
+				print('a',	a)
+				#遍历元组中的所有项目
+				for	single_item	in	numbers:
+								print('single_item',	single_item)
+				#遍历字典中的所有项目
+				for	first_part,	second_part	in	phonebook.items():
+								print(first_part,second_part)
+print(total(10,1,2,3,Jack=1123,John=2231,Inge=1560))
+
+
+输出:
+$	python	function_varargs.py
+a	10
+single_item	1
+single_item	2
+single_item	3
+Inge	1560
+John	2231
+Jack	1123
+None
+
+if	__name__	==	'__main__':
+				print('This	program	is	being	run	by	itself')
+else:
+				print('I	am	being	imported	from	another	module')
+        
+输出:
+
+$	python	module_using_name.py
+This	program	is	being	run	by	itself
+$	python
+>>>	import	module_using_name
+I	am	being	imported	from	another	module
+
+
+
+丛上述实例可以发现，运行const.py文件时if __name__=="__main__": 语句之前与之后代码都被执行，
+但作为area.py导入文件时就不会执行if __name__=="__main__": 语句之后代码。
+
+实际上if __name__=="__main__":就相当于是 Python 模拟的程序入口。
+由于模块之间相互引用，不同模块可能都有这样的定义，而入口程序只能有一个，选中哪个入口程序取决于 __name__ 的值。
+
+
