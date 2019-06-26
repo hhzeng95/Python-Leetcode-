@@ -96,3 +96,7 @@ I	am	being	imported	from	another	module
 由于模块之间相互引用，不同模块可能都有这样的定义，而入口程序只能有一个，选中哪个入口程序取决于 __name__ 的值。
 
 
+list 在python 里
+用 del 去删除 任意一个元素
+
+https://www.1point3acres.com/bbs/thread-433722-1-1.html
