@@ -78,3 +78,33 @@ a = ["1","2","3","4"]
 ['9', '0', '0']
 ['1', '9', '0', '0', '2', '3', '4']
 可以用list[x:x] = num 进行插入
+
+
+#709
+如果要修改 string里的字符，
+1. 可以先把string 转换成 list, 最后再"".join()
+2. 用slice:  s='Hello World'
+>>> s=s[:6] + 'Bital'     #s前6个字符串+'Bital'
+>>> s
+'Hello Bital'
+>>> s=s[:3] + s[8:]      #s前3个字符串+s第8位之后的字符串
+>>> s
+'Heltal'
+
+3. s='abcdef'
+>>> s=s.replace('a','A')    #用A替换a
+>>> s
+'Abcdef'
+>>> s=s.replace('bcd','123')  #用123替换bcd 
+>>> s
+'A123ef'
+
+
+#165
+
+num1 = version1.split(".")
+num2 = version2.split(".")
+
+会return一个list，帮你分好段
+
+
